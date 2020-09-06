@@ -1,0 +1,26 @@
+{
+  "name": "pet-feeder-rest-api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dockerized-services": "./dockerized-services/restart-services.bat",
+    "listing-publish-api": "node node-services/listing-publish-api.js",
+    "mongodb-consumer": "node node-services/mongodb-consumer.js",
+    "elasticsearch-consumer": "node node-services/elasticsearch-consumer.js",
+    "listing-search-api": "node node-services/listing-search-api.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.6.0",
+    "async-redis": "^1.1.7",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "elasticsearch": "^16.7.1",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "mongodb": "^3.6.1",
+    "mongoose": "^5.10.2",
+    "protobufjs": "^6.10.1",
+    "redis": "^3.0.2",
+    "response-time": "^2.3.2"
+  }
+}

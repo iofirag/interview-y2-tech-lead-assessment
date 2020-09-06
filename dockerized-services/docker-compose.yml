@@ -1,0 +1,56 @@
+version: "3"
+
+volumes:
+  dbvolume:
+
+services: 
+  rabbitmq:
+    image: 'bitnami/rabbitmq'
+    container_name: ${COMPOSE_PROJECT_NAME}_rabbitmq
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=bitnami
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports: ["27017:27017"]
+    volumes:
+      - dbvolume:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+  redis:
+    image: redis
+    container_name: redis
+    ports: ["6379:6379"]
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    container_name: elasticsearch
+    ports: ['9200:9200','9300:9300']
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+    #   - node.name=es01
+    #   - cluster.name=es-docker-cluster
+    #   - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  adminmongo:
+    image: "mrvautin/adminmongo"
+    container_name: adminmongo
+    restart: always
+    ports: ["1234:1234"]
+    environment:
+      - HOST=0.0.0.0

@@ -1,0 +1,13 @@
+  
+syntax = "proto3";
+
+message Listing {
+	required string city = 1;
+	required string address = 2;
+	required int32 rooms = 3;
+	required int32 floor = 4;
+	required int32 price = 5;
+	required string phone = 6;
+	required string email = 7;
+	required string description = 8;
+}
