@@ -39,7 +39,6 @@ async function consumer() {
     try {
       // Create/Bind a consumer queue to an exchange broker
       channel = await connection.createChannel()
-      await channel.assertExchange(process.env.EXCHANGE_NAME, 'fanout', { durable: false });
       const queue = await channel.assertQueue('', {exclusive: true})
       channel.bindQueue(queue.queue, process.env.EXCHANGE_NAME, '')
 
